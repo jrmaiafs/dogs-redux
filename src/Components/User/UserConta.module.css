@@ -1,0 +1,43 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+}
+
+.numeros p {
+  text-align: end;
+}
+
+.numeros b::before {
+  content: "";
+  display: inline-block;
+  margin-right: 5px;
+  background: #fb1;
+  width: 5px;
+  height: 14px;
+}
+
+.numeros {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 0;
+}
+
+.numeros {
+  margin-top: .5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.dados li:nth-child(2) {
+  word-break: break-all;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 40rem){
+  .main {
+    grid-template-columns: 1fr;
+  }
+}
