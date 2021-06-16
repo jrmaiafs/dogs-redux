@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Route } from "react-router-dom";
-import { UserContext } from "../../UserContext";
 
 const ProtectedRoute = (props) => {
   const { data } = useSelector((state) => state.user);

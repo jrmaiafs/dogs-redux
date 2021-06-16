@@ -1,11 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Image from "../Helper/Image";
 import Likes from "../Helper/Likes";
 import styles from "./FeedPhotosItem.module.css";
-import { UserContext } from "../../UserContext";
 
 const FeedPhotosItem = ({ photo, setModalPhoto }) => {
-  const { login, data } = React.useContext(UserContext);
+  const {data } = useSelector(state => state.user)
   function handleClick() {
     setModalPhoto(photo);
   }
@@ -18,7 +18,7 @@ const FeedPhotosItem = ({ photo, setModalPhoto }) => {
         />
         <span className={styles.visualizacao}>{photo.accesses}</span>
       </div>
-      {login && <Likes userID={data.id} photo={photo} />}
+      {data && <Likes userID={data.id} photo={photo} />}
     </li>
   );
 };

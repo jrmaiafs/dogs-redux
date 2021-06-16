@@ -1,12 +1,12 @@
 import React from "react";
-import { UserContext } from "../../UserContext";
 import CommentsForm from "./CommentsForm";
 import styles from "./PhotoComments.module.css";
 import CommentDelete from "./CommentDelete";
+import { useSelector } from "react-redux";
 
 const PhotoComments = (props) => {
   const [comments, setComments] = React.useState(() => props.comments);
-  const { login, data } = React.useContext(UserContext);
+  const { data } = useSelector(state => state.user)
   const refUl = React.useRef();
 
   React.useEffect(() => {
@@ -47,7 +47,7 @@ const PhotoComments = (props) => {
           </li>
         ))}
       </ul>
-      {login && (
+      {data && (
         <CommentsForm
           single={props.single}
           setComments={setComments}

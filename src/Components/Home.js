@@ -4,15 +4,15 @@ import Feed from "./Feed/Feed";
 import Head from "./Helper/Head";
 import styles from "./Home.module.css";
 import ButtonStyle from "../Components/Form/Button.module.css";
-import { UserContext } from "../UserContext";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const { login } = React.useContext(UserContext);
+  const { data } = useSelector((state) => state.user);
   return (
     <section className="container mainContainer">
       <Head title="Fotos" description="Rede social para animais" />
-      <div className={login ? styles.homeLogado : styles.home}>
-        {!login && (
+      <div className={data ? styles.homeLogado : styles.home}>
+        {!data && (
           <div className={styles.description}>
             <h1>Uma rede social para animais</h1>
             <div className={styles.intro}>
@@ -36,7 +36,7 @@ const Home = () => {
         )}
 
         <div>
-          {!login && (
+          {!data && (
             <div className={styles.espiada}>
               <p>Dê uma espiada nas fotos dos usuários</p>
             </div>

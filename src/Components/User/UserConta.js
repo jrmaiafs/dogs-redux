@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { PHOTOS_GET } from "../../api";
 import useFetch from "../../Hooks/useFetch";
-import { UserContext } from "../../UserContext";
 import Feed from "../Feed/Feed";
 import styles from "./UserConta.module.css";
 
