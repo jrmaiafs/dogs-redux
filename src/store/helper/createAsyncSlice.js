@@ -31,7 +31,6 @@ const createAsyncSlice = (config) => {
       ...config.reducers,
     },
   });
-
   const { fetchStarted, fetchSuccess, fetchError } = slice.actions;
 
   const asyncAction = (payload) => async (dispatch) => {

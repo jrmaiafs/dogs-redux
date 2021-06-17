@@ -14,30 +14,30 @@ const UserConta = () => {
     fotos: 0,
   });
 
-  React.useEffect(() => {
-    const total = -1;
-    const page = 1;
-    const user = data.id;
+  // React.useEffect(() => {
+  //   const total = 1;
+  //   const page = 1;
+  //   const user = data.id;
 
-    async function fetchPhotos() {
-      const { url, options } = PHOTOS_GET({ page, total, user });
-      const { response, json } = await request(url, options);
-      if (response.ok && json.length) {
-        const acessos = json
-          .map((foto) => Number(foto.accesses))
-          .reduce((a, b) => a + b);
-        const curtidas = json
-          .map((foto) => Number(foto.curtidas))
-          .reduce((a, b) => a + b);
-        const fotos = json.length;
-        setPhotos({ acessos, curtidas, fotos });
-      }
-    }
-    fetchPhotos();
-  }, [request, data]);
+  //   async function fetchPhotos() {
+  //     const { url, options } = PHOTOS_GET({ page, total, user });
+  //     const { response, json } = await request(url, options);
+  //     if (response.ok && json.length) {
+  //       const acessos = json
+  //         .map((foto) => Number(foto.accesses))
+  //         .reduce((a, b) => a + b);
+  //       const curtidas = json
+  //         .map((foto) => Number(foto.curtidas))
+  //         .reduce((a, b) => a + b);
+  //       const fotos = json.length;
+  //       setPhotos({ acessos, curtidas, fotos });
+  //     }
+  //   }
+  //   fetchPhotos();
+  // }, [request, data]);
   return (
     <div className={styles.main}>
-      <div className={styles.dados}>
+      {/* <div className={styles.dados}>
         <li className={styles.numeros}>
           <b>Nome:</b> <p>{data && data.name}</p>
         </li>
@@ -53,7 +53,7 @@ const UserConta = () => {
         <li className={styles.numeros}>
           <b>Visualizações: </b> <p>{photos && photos.acessos}</p>
         </li>
-      </div>
+      </div> */}
       <Feed user={data.id} />
     </div>
   );

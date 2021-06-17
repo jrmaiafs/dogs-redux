@@ -1,13 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPhoto } from "../../store/photo";
+import { openModal } from "../../store/ui";
 import Image from "../Helper/Image";
 import Likes from "../Helper/Likes";
 import styles from "./FeedPhotosItem.module.css";
 
 const FeedPhotosItem = ({ photo, setModalPhoto }) => {
-  const {data } = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.user);
   function handleClick() {
-    setModalPhoto(photo);
+    dispatch(openModal());
+    dispatch(fetchPhoto(photo.id));
   }
   return (
     <li className={styles.photoLi}>
@@ -18,7 +22,7 @@ const FeedPhotosItem = ({ photo, setModalPhoto }) => {
         />
         <span className={styles.visualizacao}>{photo.accesses}</span>
       </div>
-      {data && <Likes userID={data.id} photo={photo} />}
+      {/* {data && <Likes userID={data.id} photo={photo} />} */}
     </li>
   );
 };

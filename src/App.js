@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { autoLogin } from "./store/user";
 
 function App() {
+  const array = [];
+  if (array.length) console.log("arrayok");
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(autoLogin());
