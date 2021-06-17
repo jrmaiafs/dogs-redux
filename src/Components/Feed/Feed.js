@@ -13,7 +13,7 @@ const Feed = ({ user }) => {
 
   React.useEffect(() => {
     dispatch(resetStateFeed());
-    dispatch(loadNewPhotos({ user, total: 1 }));
+    dispatch(loadNewPhotos({ user, total: 3 }));
   }, [dispatch, user]);
 
   React.useEffect(() => {
@@ -23,7 +23,7 @@ const Feed = ({ user }) => {
         const scroll = window.scrollY;
         const heigth = document.body.offsetHeight - window.innerHeight;
         if (scroll > heigth * 0.75 && !wait) {
-          dispatch(loadNewPhotos({ user, total: 1 }));
+          dispatch(loadNewPhotos({ user, total: 3 }));
           wait = true;
 
           setTimeout(() => {

@@ -6,7 +6,7 @@ import Image from "../Helper/Image";
 import Likes from "../Helper/Likes";
 import styles from "./FeedPhotosItem.module.css";
 
-const FeedPhotosItem = ({ photo, setModalPhoto }) => {
+const FeedPhotosItem = ({ photo }) => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.user);
   function handleClick() {
@@ -22,7 +22,7 @@ const FeedPhotosItem = ({ photo, setModalPhoto }) => {
         />
         <span className={styles.visualizacao}>{photo.accesses}</span>
       </div>
-      {/* {data && <Likes userID={data.id} photo={photo} />} */}
+      {data && <Likes userID={data.id} photo={photo} />}
     </li>
   );
 };

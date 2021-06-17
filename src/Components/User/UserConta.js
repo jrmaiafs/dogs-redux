@@ -1,43 +1,42 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { PHOTOS_GET } from "../../api";
-import useFetch from "../../Hooks/useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { userData } from "../../store/userData";
 import Feed from "../Feed/Feed";
 import styles from "./UserConta.module.css";
 
 const UserConta = () => {
   const { data } = useSelector((state) => state.user);
-  const { request } = useFetch();
+  const { data: dataUser } = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
   const [photos, setPhotos] = React.useState({
     acessos: 0,
     curtidas: 0,
     fotos: 0,
   });
 
-  // React.useEffect(() => {
-  //   const total = 1;
-  //   const page = 1;
-  //   const user = data.id;
+  React.useEffect(() => {
+    const total = -1;
+    const page = 1;
+    const user = data.id;
+    dispatch(userData({ total, user, page }));
+  }, [dispatch, data.id]);
 
-  //   async function fetchPhotos() {
-  //     const { url, options } = PHOTOS_GET({ page, total, user });
-  //     const { response, json } = await request(url, options);
-  //     if (response.ok && json.length) {
-  //       const acessos = json
-  //         .map((foto) => Number(foto.accesses))
-  //         .reduce((a, b) => a + b);
-  //       const curtidas = json
-  //         .map((foto) => Number(foto.curtidas))
-  //         .reduce((a, b) => a + b);
-  //       const fotos = json.length;
-  //       setPhotos({ acessos, curtidas, fotos });
-  //     }
-  //   }
-  //   fetchPhotos();
-  // }, [request, data]);
+  React.useEffect(() => {
+    if (dataUser) {
+      const acessos = dataUser
+        .map((foto) => Number(foto.accesses))
+        .reduce((a, b) => a + b);
+      const curtidas = dataUser
+        .map((foto) => Number(foto.curtidas))
+        .reduce((a, b) => a + b);
+      const fotos = dataUser.length;
+      setPhotos({ acessos, curtidas, fotos });
+    }
+  }, [dataUser]);
+
   return (
     <div className={styles.main}>
-      {/* <div className={styles.dados}>
+      <div className={styles.dados}>
         <li className={styles.numeros}>
           <b>Nome:</b> <p>{data && data.name}</p>
         </li>
@@ -53,7 +52,7 @@ const UserConta = () => {
         <li className={styles.numeros}>
           <b>Visualizações: </b> <p>{photos && photos.acessos}</p>
         </li>
-      </div> */}
+      </div>
       <Feed user={data.id} />
     </div>
   );

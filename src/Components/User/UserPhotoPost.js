@@ -2,26 +2,29 @@ import React from "react";
 import Input from "../Form/Input";
 import Button from "../Form/Button";
 import useForm from "../../Hooks/useForm";
-import useFetch from "../../Hooks/useFetch";
 import styles from "./UserPhotoPost.module.css";
-import { PHOTO_POST } from "../../api";
-import Error from '../Helper/Error'
+import Error from "../Helper/Error";
 import { useNavigate } from "react-router-dom";
 import Head from "../Helper/Head";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPostPhoto } from "../../store/photoPost";
 
 const UserPhotoPost = () => {
   const nome = useForm();
   const peso = useForm("number");
   const idade = useForm("number");
   const [img, setImg] = React.useState({});
-  const {data, error, loading, request } = useFetch();
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.token.data);
+  const { data, error, loading } = useSelector((state) => state.photoPost);
+
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if(data) {
-      navigate('/conta');
+    if (data) {
+      navigate("/conta");
     }
-  },[data, navigate])
+  }, [data, navigate]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -31,11 +34,8 @@ const UserPhotoPost = () => {
     formData.append("weight", peso.value);
     formData.append("age", idade.value);
 
-    const token = window.localStorage.getItem("token");
-    const { url, options } = PHOTO_POST(formData, token);
-
     if (peso.error === null && idade.error === null) {
-      request(url, options);
+      dispatch(fetchPostPhoto({ formData, token }));
     }
   }
 
@@ -47,13 +47,27 @@ const UserPhotoPost = () => {
   }
   return (
     <section className={styles.photoPost}>
-      <Head title="Poste sua foto" description="aqui você pode postar qualquer foto que você quiser" />
+      <Head
+        title="Poste sua foto"
+        description="aqui você pode postar qualquer foto que você quiser"
+      />
       <form onSubmit={handleSubmit}>
         <Input label="Nome" type="text" name="nome" {...nome} />
         <Input label="Peso" type="text" name="peso" {...peso} />
         <Input label="Idade" type="text" name="idade" {...idade} />
-        <input multiple className={styles.file} type="file" name="img" id="img" onChange={handleImgChange} />
-        {loading ? <Button disabled>Enviando...</Button> : <Button>Enviar</Button>}
+        <input
+          multiple
+          className={styles.file}
+          type="file"
+          name="img"
+          id="img"
+          onChange={handleImgChange}
+        />
+        {loading ? (
+          <Button disabled>Enviando...</Button>
+        ) : (
+          <Button>Enviar</Button>
+        )}
         <Error error={error} />
       </form>
       <div>
